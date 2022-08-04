@@ -3,6 +3,7 @@ import { isPast, format } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
 import { Link, useParams } from 'react-router-dom';
 import classNames from 'classnames';
+import { useSidebar } from '../context/SidebarContext';
 
 interface LessonProps {
     title: string;
@@ -14,13 +15,14 @@ interface LessonProps {
 export function Lesson(props: LessonProps) {
 
     const { slug } = useParams<{ slug: string }>();
+    const { setOpenCloseSideBar, IsOpenCloseSideBar } = useSidebar();
 
     const isLessonAvailable = isPast(props.availableAt);
     const availableDateFormatted = format(props.availableAt, "EEEE' • 'd' de 'MMMM' • 'k'h'mm", { locale:ptBR });
 
     const isActiveLesson = slug === props.slug
     return (
-        <Link to={`/event/lesson/${props.slug}`} className="group">
+        <Link to={`/event/lesson/${props.slug}`} onClick={()=> setOpenCloseSideBar(!IsOpenCloseSideBar)} className="group">
             <span className="text-gray-300">
                 {availableDateFormatted.toString()}
             </span>
