@@ -1,12 +1,12 @@
-import { Logo } from "./Logo";
+import { Logo } from "../Logo/Logo";
 import { List, X } from "phosphor-react";
-import { useSidebar } from "../context/SidebarContext";
+import { useSidebar } from "../../context/SidebarContext";
 
 
 export function Header() {
 
     const { setOpenCloseSideBar, IsOpenCloseSideBar } = useSidebar();
-
+    console.log(IsOpenCloseSideBar)
     return (
         <header className="w-full p-5 flex bg-gray-700 border-b md:items-center md:justify-center border-gray-600 sm:items-left sm:justify-between">
             <Logo /> 

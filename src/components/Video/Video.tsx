@@ -1,8 +1,8 @@
 import { DefaultUi, Player, Youtube } from "@vime/react";
-import { CaretRight, DiscordLogo, FileArrowDown, Lightning } from "phosphor-react";
+import { CaretRight, DiscordLogo, FileArrowDown, Lightning, CircleNotch } from "phosphor-react";
 
 import '@vime/core/themes/default.css';
-import { useGetLessonBySlugQuery } from "../graphql/generated";
+import { useGetLessonBySlugQuery } from "../../graphql/generated";
 
 interface VideoProps {
     lessonSlug: string;
@@ -10,22 +10,25 @@ interface VideoProps {
 
 export function Video(props: VideoProps) {
 
-    const { data } = useGetLessonBySlugQuery({
+    let { data } = useGetLessonBySlugQuery({
         variables: {
             slug: props.lessonSlug
         }
     })
 
+    data = {};
+
     if(!data || !data.lesson) {
         return (
-            <div className="flex-1">
-                <p>Carregando...</p>
+            <div className="flex flex-1 sm:w-full justify-center items-center h-screen">
+                <CircleNotch className="animate-spin text-blue-500" size={32} />
+                <p className="mt-[5px] ml-[5px]">Carregando...</p>
             </div>
         )
     }
 
     return (
-        <div className="flex-1">
+        <div className="flex flex-1 md:block">
             <div className="bg-black flex justify-center">
                 <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
                     <Player>
@@ -36,7 +39,7 @@ export function Video(props: VideoProps) {
             </div>
 
             <div className="p-8 max-w-[1100px] mx-auto">
-                <div className="sm:block md:flex flex items-start gap-16">
+                <div className="sm:block md:flex items-start gap-16">
                     <div className="flex-1">
                         <h1 className="text-2xl font-bold">
                             {data.lesson.title}

@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
 import { useState, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { Logo } from "../components/Logo";
+import { Logo } from "../components/Logo/Logo";
 import { useCreateSubscriberMutation } from "../graphql/generated";
 
 
@@ -30,7 +30,7 @@ export function Subscribe() {
         <div className="min-h-screen bg-blur bg-cover bg-no-repeat flex flex-col items-center">
             <div className="w-full max-w-[1100px] items-center justify-between mt-20 mx-auto md:flex sm:block sm:mt-10">
                 <div className="max-w-[640px] sm:items-center sm:m-6">
-                    <div className="sm:flex  sm:items-center sm:justify-center">
+                    <div className="sm:flex sm:items-center sm:justify-center">
                         <Logo/>
                     </div>
                     
