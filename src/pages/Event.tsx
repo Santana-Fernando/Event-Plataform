@@ -12,7 +12,7 @@ export function Event() {
         <div className="flex flex-col min-h-screen">
             <Header/>
             <main className="flex flex-1">
-                <div className={`md:flex md:flex-1 sm:w-full ${IsOpenCloseSideBar ? 'sm:flex' : 'sm:hidden'}`}>
+                <div className={`md:flex md:flex-1 ${IsOpenCloseSideBar ? 'sm:flex' : 'sm:hidden'}`}>
                 {
                     slug 
                     ? <Video lessonSlug={slug}/> 

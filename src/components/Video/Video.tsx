@@ -1,22 +1,28 @@
-import { DefaultUi, Player, Youtube } from "@vime/react";
-import { CaretRight, DiscordLogo, FileArrowDown, Lightning, CircleNotch } from "phosphor-react";
+import { CaretRight, DiscordLogo, FileArrowDown, Lightning, CircleNotch, Play } from "phosphor-react";
+import YouTube from 'react-youtube';
 
-import '@vime/core/themes/default.css';
 import { useGetLessonBySlugQuery } from "../../graphql/generated";
 
 interface VideoProps {
     lessonSlug: string;
 }
 
+function _onReady(event:any) {
+    event.target.pauseVideo();
+}
+
 export function Video(props: VideoProps) {
+
+    const opts = {
+        height: '100%',
+        width: '100%',
+      };
 
     let { data } = useGetLessonBySlugQuery({
         variables: {
             slug: props.lessonSlug
         }
     })
-
-    data = {};
 
     if(!data || !data.lesson) {
         return (
@@ -28,13 +34,10 @@ export function Video(props: VideoProps) {
     }
 
     return (
-        <div className="flex flex-1 md:block">
+        <div className="flex-1">
             <div className="bg-black flex justify-center">
                 <div className="h-full w-full max-w-[1100px] max-h-[60vh] aspect-video">
-                    <Player>
-                        <Youtube videoId={data.lesson.videoId}/>
-                        <DefaultUi />
-                    </Player>
+                    <YouTube className="h-full w-full" videoId={data.lesson.videoId} opts={opts} onReady={_onReady} />
                 </div>
             </div>
 
@@ -58,7 +61,7 @@ export function Video(props: VideoProps) {
 
                                 <div className="leading-relaxed">
                                     <strong className="font-bold text-2xl block">{data.lesson.teacher.name}</strong>
-                                    <span className="text-gray-200 text-sm block sm:overflow-scroll sm:h-[100px]">{data.lesson.teacher.bio}</span>
+                                    <span className="text-gray-200 text-sm block sm:overflow-scroll md:overflow-hidden sm:h-[100px]">{data.lesson.teacher.bio}</span>
                                 </div>
                             </div>
                         )}
